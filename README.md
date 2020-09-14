@@ -15,3 +15,4 @@ Copy [helper.js](https://raw.githubusercontent.com/djonn/TrimpsHelper/master/hel
 ## Todo
 
 - Change housing ratio calculation to use time to earn all resources instead of costliest resource
+- Calculate if it's worth it to prestige equipment
