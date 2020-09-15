@@ -15,7 +15,8 @@
 
     /**
      * Find and mark best housing deal
-     * Calculated by ratio of costliest material to Trimp increase, thereby seeing all materials to be equal in worth
+     * Calculated by ratio of Trimp increase to how long it will take to get resources
+     * Ratio only uses the resources that will take the longest to collect
      */
     function markBestHousingDeal() {
         const bestHousing = findBestHousingDeal();
@@ -51,16 +52,18 @@
             if (what.locked) continue;
 
             const costItems = Object.keys(what.cost);
-            let costliestPrice = 0;
+            let longestWaitTime = 0;
 
             for (let costItem of costItems) {
+                const costItemPerSec = getPsString(costItem, true);
                 const price = parseFloat(getBuildingItemPrice(what, costItem, false, 1));
-                if (price > costliestPrice) costliestPrice = price;
+                const timeToEarn = price / costItemPerSec;
+
+                if (timeToEarn > longestWaitTime) longestWaitTime = timeToEarn;
             }
 
             let increase = what.increase.by;
-
-            let ratio = increase / costliestPrice;
+            let ratio = increase / longestWaitTime;
 
             if (!currentBest.ratio || currentBest.ratio < ratio) {
                 currentBest.building = building;
