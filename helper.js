@@ -105,14 +105,14 @@
     }
 
     function findBestHealthDeal() {
-        const healthItems = ['Boots', 'Helmet', 'Pants', 'Shoulderguards', 'Breastplate'];
+        const healthItems = ['Boots', 'Helmet', 'Pants', 'Shoulderguards', 'Breastplate', 'Gambeson'];
         const healthFactor = 'healthCalculated';
 
         return findBestEquipmentDeal(healthItems, healthFactor);
     }
 
     function findBestAttackDeal() {
-        const attackItems = ['Dagger', 'Mace', 'Polearm', 'Battleaxe', 'Greatsword'];
+        const attackItems = ['Dagger', 'Mace', 'Polearm', 'Battleaxe', 'Greatsword', 'Arbalest'];
         const attackFactor = 'attackCalculated';
 
         return findBestEquipmentDeal(attackItems, attackFactor);
@@ -124,6 +124,9 @@
 
         for (let item of items) {
             let what = game.equipment[item];
+
+            if (what.locked) continue;
+
             let price = parseFloat(getBuildingItemPrice(what, costItem, true, 1));
             let health = what[scoreFactor];
 
