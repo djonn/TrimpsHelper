@@ -42,17 +42,18 @@
     }
 
     function findBestHousingDeal() {
-        const buildings = ['Hut', 'House', 'Mansion'];
-        const costItems = ['food', 'metal', 'wood'];
+        const buildings = ['Hut', 'House', 'Mansion', 'Hotel', 'Resort', 'Gateway', 'Wormhole', 'Collector', 'Warpstation'];
         let currentBest = {};
 
         for (let building of buildings) {
             let what = game.buildings[building];
+
+            if (what.locked) continue;
+
+            const costItems = Object.keys(what.cost);
             let costliestPrice = 0;
 
             for (let costItem of costItems) {
-                if (!Object.keys(what.cost).includes(costItem)) continue;
-
                 const price = parseFloat(getBuildingItemPrice(what, costItem, false, 1));
                 if (price > costliestPrice) costliestPrice = price;
             }
